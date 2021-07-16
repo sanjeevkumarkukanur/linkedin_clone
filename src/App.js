@@ -1,5 +1,4 @@
-import React from 'react';
-import { useEffect } from 'react';
+import React, { useEffect }from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 import { login, logout, selectUser } from './features/userSlice';
@@ -8,6 +7,7 @@ import { auth } from './fireBase';
 import Header from './Header';
 import Login from './Login';
 import SideBar from './SideBar';
+import Widgets from './Widgets';
 
 function App() {
   const user = useSelector(selectUser)
@@ -20,16 +20,15 @@ function App() {
         dispatch(login({
           email: userAuth.email,
           uid: userAuth.uid,
-          displayName: userAuth.name,
+          displayName: userAuth.displayName,
           photoUrl: userAuth.profilePic
       }));
       }
       else{
         dispatch(logout());
       }
-    })
-    
-  }, [])  
+    }) 
+  }, [dispatch])  
     
 
   return (
@@ -40,7 +39,7 @@ function App() {
       ):(<div className="app__body">
         <SideBar />
         <Feed />
-         {/* widgets */}
+        <Widgets />
       </div>)
       }
       
